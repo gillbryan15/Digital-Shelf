@@ -1,0 +1,22 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.book-adder {
+  margin-bottom: 30px;
+  display: flex;
+  gap: 10px;
+}
+
+.shelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-end;
+  border-bottom: 4px solid #8b5e3c;
+  padding-bottom: 10px;
+  min-height: 200px;
+}
