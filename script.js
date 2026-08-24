@@ -2,6 +2,7 @@ const titleInput = document.getElementById("book-title");
 const authorInput = document.getElementById("book-author");
 const addBookBtn = document.getElementById("add-book-btn");
 const shelf = document.getElementById("shelf");
+const doneCheckbox = document.getElementById("book-done");
 
 addBookBtn.addEventListener("click", function(){
     const title = titleInput.value;
@@ -16,7 +17,8 @@ addBookBtn.addEventListener("click", function(){
         author: author,
         color: getRandomColor(),
         height: getRandomHeight(),
-        width: getRandomWidth()
+        width: getRandomWidth(),
+        done: doneCheckbox.checked
     };
 
     books.push(newBook);
@@ -62,8 +64,20 @@ function renderShelf() {
     bookBlock.style.backgroundColor = book.color;
     bookBlock.style.height = book.height + "px";
     bookBlock.style.width = book.width + "px";
+    bookBlock.title = `${book.title} by ${book.author}`; //tooltip and new way of output
+
+    if (book.done === true){
+      bookBlock.style.opacity = "1.0";
+    }
+    else {
+      bookBlock.style.opacity = "0.4";
+    }
+      
+    
 
     shelf.appendChild(bookBlock);
   });
   
 }
+
+
