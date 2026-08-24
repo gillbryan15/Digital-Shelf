@@ -3,6 +3,7 @@ const authorInput = document.getElementById("book-author");
 const addBookBtn = document.getElementById("add-book-btn");
 const shelf = document.getElementById("shelf");
 const doneCheckbox = document.getElementById("book-done");
+const doneBookBtn = document.getElementById("change-book-status");
 
 addBookBtn.addEventListener("click", function(){
     const title = titleInput.value;
@@ -29,6 +30,7 @@ addBookBtn.addEventListener("click", function(){
     authorInput.value = ""; // After input the box will clear
  });
 let books = []; // this will hold all our book objects
+let selectedBook = null; // nothing selected at first
 
 function getRandomColor() {
   const red = Math.floor(Math.random() * 255);
@@ -54,6 +56,14 @@ function getRandomWidth(){
     return width;
 }
 
+doneBookBtn.addEventListener("click", function() {
+  if (selectedBook === null) {
+    return; // nothing selected, do nothing
+  }
+  selectedBook.done = !selectedBook.done;
+  renderShelf();
+});
+
 //console.log(getRandomHeight()); to check if it runs
 
 function renderShelf() {
@@ -65,17 +75,32 @@ function renderShelf() {
     bookBlock.style.height = book.height + "px";
     bookBlock.style.width = book.width + "px";
     bookBlock.title = `${book.title} by ${book.author}`; //tooltip and new way of output
-
-    if (book.done === true){
+  
+    if (book.done){
       bookBlock.style.opacity = "1.0";
     }
     else {
       bookBlock.style.opacity = "0.4";
     }
+
+    if (book === selectedBook) {
+  bookBlock.style.border = "3px solid black";
+} else {
+  bookBlock.style.border = "none";
+}
       
     
-
     shelf.appendChild(bookBlock);
+
+    bookBlock.addEventListener("click", function (){
+      selectedBook = book;
+      renderShelf();
+
+     });
+
+
+   
+  
   });
   
 }
