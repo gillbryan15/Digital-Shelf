@@ -11,17 +11,25 @@
     <h1>My Reading Shelf</h1>
   </header>
 
-  <div class="book-adder">
+    <div class="book-adder">
+  <button id="show-add-form-btn">+ Add Book</button>
+
+  <div id="add-form" class="add-form">
     <input type="text" id="book-title" placeholder="Book title...">
     <input type="text" id="book-author" placeholder="Author...">
-    <button id="add-book-btn">+ Add Book</button>
     <label>
-    <input type ="checkbox" id ="book-done">
-    Finished?
+      <input type="checkbox" id="book-done">
+      Finished?
     </label>
-    <button id="change-book-status">Done</button>
-    <button id="remove-book">Remove</button>
+    <button id="add-book-btn">Confirm</button>
   </div>
+</div>
+
+<div class="selected-book-controls">
+  <p id="selected-book-label">No book selected</p>
+  <button id="change-book-status">Done</button>
+  <button id="remove-book">Remove</button>
+</div>
 
   <div id="shelf" class="shelf"></div>
 

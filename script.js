@@ -5,9 +5,20 @@ const shelf = document.getElementById("shelf");
 const doneCheckbox = document.getElementById("book-done");
 const doneBookBtn = document.getElementById("change-book-status"); 
 const removeBookBtn = document.getElementById("remove-book");
+const selectedBookLabel = document.getElementById("selected-book-label");
+const showAddFormBtn = document.getElementById("show-add-form-btn");
+const addForm = document.getElementById("add-form");
 
 
 //Initialize all the elements 
+
+showAddFormBtn.addEventListener("click", function() {
+  if (addForm.style.display === "flex") {
+    addForm.style.display = "none";
+  } else {
+    addForm.style.display = "flex";
+  }
+});
 
 addBookBtn.addEventListener("click", function(){  //Button for adding books
     const title = titleInput.value; //empty box next to button
@@ -101,6 +112,12 @@ function saveBooks() {
 
 function renderShelf() {
   shelf.innerHTML = "";
+
+  if (selectedBook) {
+  selectedBookLabel.textContent = "Selected: " + selectedBook.title + " by " + selectedBook.author;
+} else {
+  selectedBookLabel.textContent = "No book selected";
+}
   
   books.forEach(function(book) { //loops through all books in the array
     const bookBlock = document.createElement("div"); //Creates a new div for a book

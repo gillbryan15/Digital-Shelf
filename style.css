@@ -16,7 +16,53 @@ body {
   flex-wrap: wrap;
   gap: 10px;
   align-items: flex-end;
-  border-bottom: 4px solid #8b5e3c;
+  border-bottom: 16px solid #8b5e3c;
   padding-bottom: 10px;
   min-height: 200px;
+}
+
+#add-book-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+#change-book-status {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+#remove-book {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.selected-book-controls {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 15px;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#selected-book-label {
+  margin: 0;
+  font-weight: bold;
+  flex-grow: 1;
+}
+
+.add-form {
+  display: none;
+  gap: 10px;
+  margin-top: 10px;
 }
