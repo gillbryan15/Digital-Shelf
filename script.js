@@ -4,6 +4,7 @@ const addBookBtn = document.getElementById("add-book-btn");
 const shelf = document.getElementById("shelf");
 const doneCheckbox = document.getElementById("book-done");
 const doneBookBtn = document.getElementById("change-book-status"); 
+const removeBookBtn = document.getElementById("remove-book");
 
 
 //Initialize all the elements 
@@ -77,6 +78,21 @@ doneBookBtn.addEventListener("click", function() {
   saveBooks()
 });
 
+removeBookBtn.addEventListener("click", function () {
+
+  if(selectedBook === null) {
+    return;
+  }
+
+  books = books.filter(function(book){
+    return book !== selectedBook;
+  });
+
+  selectedBook = null;
+  renderShelf();
+  saveBooks();
+
+});
 function saveBooks() { 
   localStorage.setItem("myBooks", JSON.stringify(books)); 
 }
