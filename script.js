@@ -13,6 +13,7 @@ const totalPagesInput = document.getElementById("book-total-pages"); //total pag
 const progressBarFill = document.getElementById("progress-bar-fill"); //progress bar
 const updatePageInput = document.getElementById("update-page-input"); //update page 
 const updatePageBtn = document.getElementById("update-page-btn"); // update button
+const streakLabel = document.getElementById("streak-label");//streak
 
 //Initialize all the elements 
 
@@ -44,7 +45,8 @@ addBookBtn.addEventListener("click", function(){  //Button for adding books
     };
 
     books.push(newBook); //adds the book into the book array
-
+    
+    updateStreak();
     renderShelf();
     saveBooks();
 
@@ -55,16 +57,28 @@ addBookBtn.addEventListener("click", function(){  //Button for adding books
  });
 let books = []; // this will hold all our book objects 
 let selectedBook = null; // nothing selected at first
+let currentStreak = 0; //initialize streak
+let lastActiveDate = null; //nothing in the date yet
 
-const saved = localStorage.getItem("myBooks"); //retrieve what is saved in this
+const saved = localStorage.getItem("myBooks");
+const savedStreak = localStorage.getItem("myStreak");
+const savedLastActive = localStorage.getItem("myLastActive"); //retrieve what is saved in this
+
 if (saved) {
   books = JSON.parse(saved); //converts strings back to object
+}
+if (savedStreak) {
+  currentStreak = Number(savedStreak);
+}
+if (savedLastActive) {
+  lastActiveDate = savedLastActive;
 }
 
 function saveBooks() { 
   localStorage.setItem("myBooks", JSON.stringify(books)); //save under label "myBooks" //converts objects to string
 }
 
+updateStreak();
 renderShelf();
 
 function getRandomColor() { 
@@ -97,8 +111,10 @@ doneBookBtn.addEventListener("click", function() {
     return; // nothing selected, do nothing
   }
   selectedBook.done = !selectedBook.done;
+
+  updateStreak();
   renderShelf();
-  saveBooks()
+  saveBooks();
 });
 
 removeBookBtn.addEventListener("click", function () {
@@ -112,7 +128,7 @@ removeBookBtn.addEventListener("click", function () {
   });
 
   selectedBook = null; //clears selection since selected book no longer exists
-  
+
   renderShelf();
   saveBooks(); //every time we render a shelf, we save it, like a checkpoint
 
@@ -130,11 +146,37 @@ updatePageBtn.addEventListener("click", function() {
   }
 
   selectedBook.currentPage = newPage; //updates the currentPage value to the newPage value
+
+  updateStreak();
   renderShelf();
   saveBooks();
 
   updatePageInput.value = "";
 });
+
+function updateStreak() {
+  const today = new Date().toDateString();
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayString = yesterday.toDateString();
+
+  if (lastActiveDate === today) {
+    // already counted today, do nothing
+    return;
+  } else if (lastActiveDate === yesterdayString) {
+    currentStreak = currentStreak + 1;
+  } else {
+    currentStreak = 1;
+  }
+
+  lastActiveDate = today;
+
+  localStorage.setItem("myStreak", currentStreak);
+  localStorage.setItem("myLastActive", lastActiveDate);
+
+  streakLabel.textContent = "🔥 Streak: " + currentStreak + " days";
+}
 
 //console.log(getRandomHeight()); to check if it runs
 
