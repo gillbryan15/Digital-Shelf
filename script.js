@@ -1,22 +1,22 @@
-const titleInput = document.getElementById("book-title");
-const authorInput = document.getElementById("book-author");
-const addBookBtn = document.getElementById("add-book-btn");
-const shelf = document.getElementById("shelf");
-const doneCheckbox = document.getElementById("book-done");
-const doneBookBtn = document.getElementById("change-book-status"); 
-const removeBookBtn = document.getElementById("remove-book");
-const selectedBookLabel = document.getElementById("selected-book-label");
-const showAddFormBtn = document.getElementById("show-add-form-btn");
-const addForm = document.getElementById("add-form");
-const currentPageInput = document.getElementById("book-current-page");
-const totalPagesInput = document.getElementById("book-total-pages");
-const progressBarFill = document.getElementById("progress-bar-fill");
-const updatePageInput = document.getElementById("update-page-input");
-const updatePageBtn = document.getElementById("update-page-btn");
+const titleInput = document.getElementById("book-title"); //title
+const authorInput = document.getElementById("book-author"); //author
+const addBookBtn = document.getElementById("add-book-btn"); //Add button
+const shelf = document.getElementById("shelf"); //shelf 
+const doneCheckbox = document.getElementById("book-done"); //done check box
+const doneBookBtn = document.getElementById("change-book-status"); // done button
+const removeBookBtn = document.getElementById("remove-book"); // remove button
+const selectedBookLabel = document.getElementById("selected-book-label"); //Book label (title and author)
+const showAddFormBtn = document.getElementById("show-add-form-btn"); //Add form button
+const addForm = document.getElementById("add-form"); //collapsible form
+const currentPageInput = document.getElementById("book-current-page"); //current page
+const totalPagesInput = document.getElementById("book-total-pages"); //total page
+const progressBarFill = document.getElementById("progress-bar-fill"); //progress bar
+const updatePageInput = document.getElementById("update-page-input"); //update page 
+const updatePageBtn = document.getElementById("update-page-btn"); // update button
 
 //Initialize all the elements 
 
-showAddFormBtn.addEventListener("click", function() {
+showAddFormBtn.addEventListener("click", function() { //basically collapses the form when button click
   if (addForm.style.display === "flex") {
     addForm.style.display = "none";
   } else {
@@ -56,9 +56,13 @@ addBookBtn.addEventListener("click", function(){  //Button for adding books
 let books = []; // this will hold all our book objects 
 let selectedBook = null; // nothing selected at first
 
-const saved = localStorage.getItem("myBooks");
+const saved = localStorage.getItem("myBooks"); //retrieve what is saved in this
 if (saved) {
-  books = JSON.parse(saved);
+  books = JSON.parse(saved); //converts strings back to object
+}
+
+function saveBooks() { 
+  localStorage.setItem("myBooks", JSON.stringify(books)); //save under label "myBooks" //converts objects to string
 }
 
 renderShelf();
@@ -99,17 +103,18 @@ doneBookBtn.addEventListener("click", function() {
 
 removeBookBtn.addEventListener("click", function () {
 
-  if(selectedBook === null) {
+  if(selectedBook === null) { //does nothing if no book is selected
     return;
   }
 
-  books = books.filter(function(book){
-    return book !== selectedBook;
+  books = books.filter(function(book){ //filters the books array and returns a new filtered array
+    return book !== selectedBook; //goes through each book, if true to this condition, we keep the book, if false, we remove it
   });
 
-  selectedBook = null;
+  selectedBook = null; //clears selection since selected book no longer exists
+  
   renderShelf();
-  saveBooks();
+  saveBooks(); //every time we render a shelf, we save it, like a checkpoint
 
 });
 
@@ -118,22 +123,18 @@ updatePageBtn.addEventListener("click", function() {
     return;
   }
 
-  const newPage = Number(updatePageInput.value);
+  const newPage = Number(updatePageInput.value); //initialize variable newPage to the input
 
   if (updatePageInput.value === "") {
     return;
   }
 
-  selectedBook.currentPage = newPage;
+  selectedBook.currentPage = newPage; //updates the currentPage value to the newPage value
   renderShelf();
   saveBooks();
 
   updatePageInput.value = "";
 });
-
-function saveBooks() { 
-  localStorage.setItem("myBooks", JSON.stringify(books)); 
-}
 
 //console.log(getRandomHeight()); to check if it runs
 
@@ -157,10 +158,10 @@ function renderShelf() {
     bookBlock.title = `${book.title} by ${book.author}`; //tooltip and new way of output
   
     if (book.done){
-      bookBlock.style.opacity = "1.0";
+      bookBlock.style.opacity = "1.0"; //opacity is set to maximum
     }
     else {
-      bookBlock.style.opacity = "0.4";
+      bookBlock.style.opacity = "0.4"; //opacity is set to 40%
     }
 
     if (book === selectedBook) {
