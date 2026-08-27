@@ -8,6 +8,9 @@ const removeBookBtn = document.getElementById("remove-book");
 const selectedBookLabel = document.getElementById("selected-book-label");
 const showAddFormBtn = document.getElementById("show-add-form-btn");
 const addForm = document.getElementById("add-form");
+const currentPageInput = document.getElementById("book-current-page");
+const totalPagesInput = document.getElementById("book-total-pages");
+const progressBarFill = document.getElementById("progress-bar-fill");
 
 
 //Initialize all the elements 
@@ -34,7 +37,9 @@ addBookBtn.addEventListener("click", function(){  //Button for adding books
         color: getRandomColor(),
         height: getRandomHeight(),
         width: getRandomWidth(),
-        done: doneCheckbox.checked
+        done: doneCheckbox.checked,
+        currentPage: Number(currentPageInput.value) || 0,
+        totalPages: Number(totalPagesInput.value) || 1
     };
 
     books.push(newBook); //adds the book into the book array
@@ -43,7 +48,9 @@ addBookBtn.addEventListener("click", function(){  //Button for adding books
     saveBooks();
 
     titleInput.value = "";
-    authorInput.value = ""; // After input the box will clear
+    authorInput.value = "";
+    currentPageInput.value = "";
+    totalPagesInput.value = ""; // After input the box will clear
  });
 let books = []; // this will hold all our book objects 
 let selectedBook = null; // nothing selected at first
@@ -115,8 +122,11 @@ function renderShelf() {
 
   if (selectedBook) {
   selectedBookLabel.textContent = "Selected: " + selectedBook.title + " by " + selectedBook.author;
+  const percent = (selectedBook.currentPage / selectedBook.totalPages) * 100;
+  progressBarFill.style.width = percent + "%";
 } else {
   selectedBookLabel.textContent = "No book selected";
+  progressBarFill.style.width = "0%";
 }
   
   books.forEach(function(book) { //loops through all books in the array
@@ -157,3 +167,4 @@ function renderShelf() {
 }
 
 
+localStorage.removeItem("myBooks");

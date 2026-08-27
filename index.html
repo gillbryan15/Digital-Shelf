@@ -17,6 +17,8 @@
   <div id="add-form" class="add-form">
     <input type="text" id="book-title" placeholder="Book title...">
     <input type="text" id="book-author" placeholder="Author...">
+    <input type="number" id="book-current-page" placeholder="Current page" value="-0">
+    <input type="number" id="book-total-pages" placeholder="Total pages">
     <label>
       <input type="checkbox" id="book-done">
       Finished?
@@ -27,6 +29,9 @@
 
 <div class="selected-book-controls">
   <p id="selected-book-label">No book selected</p>
+  <div class="progress-bar-track">
+    <div id="progress-bar-fill" class="progress-bar-fill"></div>
+  </div>
   <button id="change-book-status">Done</button>
   <button id="remove-book">Remove</button>
 </div>
