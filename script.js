@@ -11,7 +11,8 @@ const addForm = document.getElementById("add-form");
 const currentPageInput = document.getElementById("book-current-page");
 const totalPagesInput = document.getElementById("book-total-pages");
 const progressBarFill = document.getElementById("progress-bar-fill");
-
+const updatePageInput = document.getElementById("update-page-input");
+const updatePageBtn = document.getElementById("update-page-btn");
 
 //Initialize all the elements 
 
@@ -111,6 +112,25 @@ removeBookBtn.addEventListener("click", function () {
   saveBooks();
 
 });
+
+updatePageBtn.addEventListener("click", function() {
+  if (selectedBook === null) {
+    return;
+  }
+
+  const newPage = Number(updatePageInput.value);
+
+  if (updatePageInput.value === "") {
+    return;
+  }
+
+  selectedBook.currentPage = newPage;
+  renderShelf();
+  saveBooks();
+
+  updatePageInput.value = "";
+});
+
 function saveBooks() { 
   localStorage.setItem("myBooks", JSON.stringify(books)); 
 }
@@ -167,4 +187,3 @@ function renderShelf() {
 }
 
 
-localStorage.removeItem("myBooks");
