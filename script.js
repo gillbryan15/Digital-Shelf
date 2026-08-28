@@ -222,7 +222,7 @@ function renderShelf() {
     bookBlock.addEventListener("click", function (){ // this selects books, must be inside the renderShelf function
       selectedBook = book;
       renderShelf();
-      saveBooks();
+      saveBooks();  
 
      });
 
