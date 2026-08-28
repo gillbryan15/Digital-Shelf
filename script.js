@@ -6,6 +6,7 @@ const doneCheckbox = document.getElementById("book-done"); //done check box
 const doneBookBtn = document.getElementById("change-book-status"); // done button
 const removeBookBtn = document.getElementById("remove-book"); // remove button
 const selectedBookLabel = document.getElementById("selected-book-label"); //Book label (title and author)
+const selectedBookCurrentPage = document.getElementById("selected-book-current-page");
 const showAddFormBtn = document.getElementById("show-add-form-btn"); //Add form button
 const addForm = document.getElementById("add-form"); //collapsible form
 const currentPageInput = document.getElementById("book-current-page"); //current page
@@ -163,18 +164,18 @@ function updateStreak() {
 
   if (lastActiveDate === today) {
     // already counted today, do nothing
-    return;
   } else if (lastActiveDate === yesterdayString) {
     currentStreak = currentStreak + 1;
+    lastActiveDate = today;
   } else {
     currentStreak = 1;
+    lastActiveDate = today;
   }
 
   lastActiveDate = today;
 
   localStorage.setItem("myStreak", currentStreak);
   localStorage.setItem("myLastActive", lastActiveDate);
-
   streakLabel.textContent = "🔥 Streak: " + currentStreak + " days";
 }
 
@@ -185,11 +186,13 @@ function renderShelf() {
 
   if (selectedBook) {
   selectedBookLabel.textContent = "Selected: " + selectedBook.title + " by " + selectedBook.author;
+  selectedBookCurrentPage.textContent = "Current Page: " + selectedBook.currentPage + " of " + selectedBook.totalPages;
   const percent = (selectedBook.currentPage / selectedBook.totalPages) * 100;
   progressBarFill.style.width = percent + "%";
 } else {
   selectedBookLabel.textContent = "No book selected";
   progressBarFill.style.width = "0%";
+  selectedBookCurrentPage.textContent = "";
 }
   
   books.forEach(function(book) { //loops through all books in the array

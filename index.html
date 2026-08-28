@@ -29,10 +29,6 @@
 </div>
 
 <div class="selected-book-controls">
-  <p id="selected-book-label">No book selected</p>
-  <div class="progress-bar-track">
-    <div id="progress-bar-fill" class="progress-bar-fill"></div>
-  </div>
   <input type="number" id="update-page-input" placeholder="Current page">
   <button id="update-page-btn">Update Page</button>
   <button id="change-book-status">Done</button>
@@ -40,6 +36,14 @@
 </div>
 
   <div id="shelf" class="shelf"></div>
+
+<div class = "selected-book-info">
+  <p id="selected-book-label">No book selected</p>
+  <p id="selected-book-current-page"></p>
+  <div class="progress-bar-track">
+    <div id="progress-bar-fill" class="progress-bar-fill"></div>
+  </div>
+</div>
 
   <script src="script.js"></script>
 </body>
