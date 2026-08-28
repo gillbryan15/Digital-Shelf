@@ -91,3 +91,9 @@ body {
   background-color: #3b82f6;
   width: 0%;
 }
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+
+}

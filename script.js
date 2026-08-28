@@ -26,6 +26,7 @@ showAddFormBtn.addEventListener("click", function() { //basically collapses the 
   }
 });
 
+
 addBookBtn.addEventListener("click", function(){  //Button for adding books
     const title = titleInput.value; //empty box next to button
     const author = authorInput.value;
