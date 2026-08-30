@@ -251,4 +251,3 @@ function renderShelf() {
 }
 
 
-console.log(books.map(b => b.bookAngle));
