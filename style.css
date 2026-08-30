@@ -15,7 +15,7 @@ body {
 .shelf {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 18px;
   align-items: flex-end;
   border-bottom: 16px solid #8b5e3c;
   padding-bottom: 10px;
@@ -96,4 +96,8 @@ header {
   text-align: center;
   margin-bottom: 30px;
 
+}
+
+title {
+  text-align: center;
 }

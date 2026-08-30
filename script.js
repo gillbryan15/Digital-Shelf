@@ -43,7 +43,8 @@ addBookBtn.addEventListener("click", function(){  //Button for adding books
         width: getRandomWidth(),
         done: doneCheckbox.checked,
         currentPage: Number(currentPageInput.value) || 0,
-        totalPages: Number(totalPagesInput.value) || 1
+        totalPages: Number(totalPagesInput.value) || 1,
+        bookAngle: getRandomLean()
     };
 
     books.push(newBook); //adds the book into the book array
@@ -106,6 +107,19 @@ function getRandomWidth(){
     const width = Math.floor(Math.random() * (max - min)) + min;
 
     return width;
+}
+
+function getRandomLean() {
+  const shouldLean = Math.random() < 0.5; // 50% chance
+
+  if (shouldLean) {
+
+      const angle = Math.floor(Math.random() * 20) - 10; // -10 to +9, gentler lean    
+      return angle;
+
+  } else {
+    return 0; // upright, no lean
+  }
 }
 
 doneBookBtn.addEventListener("click", function() {
@@ -197,12 +211,15 @@ function renderShelf() {
 }
   
   books.forEach(function(book) { //loops through all books in the array
+
     const bookBlock = document.createElement("div"); //Creates a new div for a book
     bookBlock.style.backgroundColor = book.color; 
     bookBlock.style.height = book.height + "px"; //adds the details of this specific div
     bookBlock.style.width = book.width + "px";
     bookBlock.title = `${book.title} by ${book.author}`; //tooltip and new way of output
-  
+    bookBlock.style.transform = `rotate(${book.bookAngle}deg)`;  
+    bookBlock.style.transformOrigin = "bottom";
+
     if (book.done){
       bookBlock.style.opacity = "1.0"; //opacity is set to maximum
     }
@@ -234,3 +251,4 @@ function renderShelf() {
 }
 
 
+console.log(books.map(b => b.bookAngle));
