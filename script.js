@@ -15,6 +15,8 @@ const progressBarFill = document.getElementById("progress-bar-fill"); //progress
 const updatePageInput = document.getElementById("update-page-input"); //update page 
 const updatePageBtn = document.getElementById("update-page-btn"); // update button
 const streakLabel = document.getElementById("streak-label");//streak
+const bookNotesInput = document.getElementById("book-notes-input");
+const saveNotesBtn = document.getElementById("save-notes-btn");
 
 //Initialize all the elements 
 
@@ -236,13 +238,23 @@ function renderShelf() {
     
     shelf.appendChild(bookBlock); //Places book at the end of the DOM
 
-    bookBlock.addEventListener("click", function (){ // this selects books, must be inside the renderShelf function
+    bookBlock.addEventListener("click", function() {
       selectedBook = book;
-      renderShelf();
-      saveBooks();  
+       bookNotesInput.value = book.notes || "";
+        renderShelf();
+        saveBooks();
+   });
 
-     });
+   saveNotesBtn.addEventListener("click", function() {
+       if (selectedBook === null) {
+         return;
+        }
 
+       selectedBook.notes = bookNotesInput.value;
+
+           renderShelf();
+           saveBooks();
+      });
 
    
   
