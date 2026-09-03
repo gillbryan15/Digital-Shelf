@@ -15,8 +15,10 @@ const progressBarFill = document.getElementById("progress-bar-fill"); //progress
 const updatePageInput = document.getElementById("update-page-input"); //update page 
 const updatePageBtn = document.getElementById("update-page-btn"); // update button
 const streakLabel = document.getElementById("streak-label");//streak
+const showNotesBtn = document.getElementById("show-notes-btn");
+const notesPanel = document.getElementById("notes-panel");
+const notesPanelTitle = document.getElementById("notes-panel-title");
 const bookNotesInput = document.getElementById("book-notes-input");
-const saveNotesBtn = document.getElementById("save-notes-btn");
 
 //Initialize all the elements 
 
@@ -26,6 +28,35 @@ showAddFormBtn.addEventListener("click", function() { //basically collapses the 
   } else {
     addForm.style.display = "flex";
   }
+});
+
+showNotesBtn.addEventListener("click", function () {
+
+  if (selectedBook === null){
+    return;
+  }
+
+  if (notesPanel.style.display === "flex") {
+    notesPanel.style.display = "none";
+  } else {
+    notesPanel.style.display = "flex";
+    bookNotesInput.value = selectedBook.notes || "";
+    notesPanelTitle.textContent = "Notes: " + selectedBook.title;
+  }
+
+});
+
+const saveNotesBtn = document.getElementById("save-notes-btn"); // add near your other getElementById lines
+
+saveNotesBtn.addEventListener("click", function() {
+  if (selectedBook === null) {
+    return;
+  }
+
+  selectedBook.notes = bookNotesInput.value;
+
+  renderShelf();
+  saveBooks();
 });
 
 
@@ -240,21 +271,11 @@ function renderShelf() {
 
     bookBlock.addEventListener("click", function() {
       selectedBook = book;
-       bookNotesInput.value = book.notes || "";
         renderShelf();
         saveBooks();
    });
 
-   saveNotesBtn.addEventListener("click", function() {
-       if (selectedBook === null) {
-         return;
-        }
 
-       selectedBook.notes = bookNotesInput.value;
-
-           renderShelf();
-           saveBooks();
-      });
 
    
   
