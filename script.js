@@ -19,8 +19,32 @@ const showNotesBtn = document.getElementById("show-notes-btn");
 const notesPanel = document.getElementById("notes-panel");
 const notesPanelTitle = document.getElementById("notes-panel-title");
 const bookNotesInput = document.getElementById("book-notes-input");
+const saveNotesBtn = document.getElementById("save-notes-btn"); 
 
 //Initialize all the elements 
+
+let books = []; // this will hold all our book objects 
+let selectedBook = null; // nothing selected at first
+let currentStreak = 0; //initialize streak
+let lastActiveDate = null; //nothing in the date yet
+
+const saved = localStorage.getItem("myBooks");
+const savedStreak = localStorage.getItem("myStreak");
+const savedLastActive = localStorage.getItem("myLastActive"); //retrieve what is saved in this
+
+if (saved) {
+  books = JSON.parse(saved); //converts strings back to object
+}
+if (savedStreak) {
+  currentStreak = Number(savedStreak);
+}
+if (savedLastActive) {
+  lastActiveDate = savedLastActive;
+}
+
+function saveBooks() { 
+  localStorage.setItem("myBooks", JSON.stringify(books)); //save under label "myBooks" //converts objects to string
+}
 
 showAddFormBtn.addEventListener("click", function() { //basically collapses the form when button click
   if (addForm.style.display === "flex") {
@@ -45,8 +69,6 @@ showNotesBtn.addEventListener("click", function () {
   }
 
 });
-
-const saveNotesBtn = document.getElementById("save-notes-btn"); // add near your other getElementById lines
 
 saveNotesBtn.addEventListener("click", function() {
   if (selectedBook === null) {
@@ -91,71 +113,8 @@ addBookBtn.addEventListener("click", function(){  //Button for adding books
     currentPageInput.value = "";
     totalPagesInput.value = ""; // After input the box will clear
  });
-let books = []; // this will hold all our book objects 
-let selectedBook = null; // nothing selected at first
-let currentStreak = 0; //initialize streak
-let lastActiveDate = null; //nothing in the date yet
 
-const saved = localStorage.getItem("myBooks");
-const savedStreak = localStorage.getItem("myStreak");
-const savedLastActive = localStorage.getItem("myLastActive"); //retrieve what is saved in this
-
-if (saved) {
-  books = JSON.parse(saved); //converts strings back to object
-}
-if (savedStreak) {
-  currentStreak = Number(savedStreak);
-}
-if (savedLastActive) {
-  lastActiveDate = savedLastActive;
-}
-
-function saveBooks() { 
-  localStorage.setItem("myBooks", JSON.stringify(books)); //save under label "myBooks" //converts objects to string
-}
-
-updateStreak();
-renderShelf();
-
-function getRandomColor() { 
-  const red = Math.floor(Math.random() * 255); //math random gets a random number between 0-1
-  const green = Math.floor(Math.random() * 255);//math floor rounds up the number to the closest integer
-  const blue = Math.floor(Math.random() * 255);
-
-  return "rgb(" + red + ", " + green + ", " + blue + ")";
-  
-}
-
-function getRandomHeight() {
-    const min = 100;
-    const max = 250;
-    const height = Math.floor(Math.random() * (max - min)) + min; //max - min is the range, + min is so that we atleast get the min height.
-
-    return height;
-}
-
-function getRandomWidth(){
-    const min = 10;
-    const max = 50;
-    const width = Math.floor(Math.random() * (max - min)) + min;
-
-    return width;
-}
-
-function getRandomLean() {
-  const shouldLean = Math.random() < 0.5; // 50% chance
-
-  if (shouldLean) {
-
-      const angle = Math.floor(Math.random() * 20) - 10; // -10 to +9, gentler lean    
-      return angle;
-
-  } else {
-    return 0; // upright, no lean
-  }
-}
-
-doneBookBtn.addEventListener("click", function() {
+ doneBookBtn.addEventListener("click", function() {
   if (selectedBook === null) {
     return; // nothing selected, do nothing
   }
@@ -203,6 +162,49 @@ updatePageBtn.addEventListener("click", function() {
   updatePageInput.value = "";
 });
 
+
+
+
+
+
+function getRandomColor() { 
+  const red = Math.floor(Math.random() * 255); //math random gets a random number between 0-1
+  const green = Math.floor(Math.random() * 255);//math floor rounds up the number to the closest integer
+  const blue = Math.floor(Math.random() * 255);
+
+  return "rgb(" + red + ", " + green + ", " + blue + ")";
+  
+}
+
+function getRandomHeight() {
+    const min = 100;
+    const max = 250;
+    const height = Math.floor(Math.random() * (max - min)) + min; //max - min is the range, + min is so that we atleast get the min height.
+
+    return height;
+}
+
+function getRandomWidth(){
+    const min = 10;
+    const max = 50;
+    const width = Math.floor(Math.random() * (max - min)) + min;
+
+    return width;
+}
+
+function getRandomLean() {
+  const shouldLean = Math.random() < 0.5; // 50% chance
+
+  if (shouldLean) {
+
+      const angle = Math.floor(Math.random() * 20) - 10; // -10 to +9, gentler lean    
+      return angle;
+
+  } else {
+    return 0; // upright, no lean
+  }
+}
+
 function updateStreak() {
   const today = new Date().toDateString();
 
@@ -227,7 +229,10 @@ function updateStreak() {
   streakLabel.textContent = "🔥 Streak: " + currentStreak + " days";
 }
 
-//console.log(getRandomHeight()); to check if it runs
+
+
+
+
 
 function renderShelf() {
   shelf.innerHTML = "";
@@ -282,5 +287,8 @@ function renderShelf() {
   });
   
 }
+
+updateStreak();
+renderShelf();
 
 
