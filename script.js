@@ -185,7 +185,7 @@ function getRandomHeight() {
 }
 
 function getRandomWidth(){
-    const min = 10;
+    const min = 20;
     const max = 50;
     const width = Math.floor(Math.random() * (max - min)) + min;
 
@@ -251,10 +251,12 @@ function renderShelf() {
   books.forEach(function(book) { //loops through all books in the array
 
     const bookBlock = document.createElement("div"); //Creates a new div for a book
+    bookBlock.classList.add("book-block");
     bookBlock.style.backgroundColor = book.color; 
     bookBlock.style.height = book.height + "px"; //adds the details of this specific div
     bookBlock.style.width = book.width + "px";
     bookBlock.title = `${book.title} by ${book.author}`; //tooltip and new way of output
+    bookBlock.textContent = book.title;
     bookBlock.style.transform = `rotate(${book.bookAngle}deg)`;  
     bookBlock.style.transformOrigin = "bottom";
 

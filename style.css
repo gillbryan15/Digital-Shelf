@@ -3,6 +3,14 @@ body {
   max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
+  background-color: #f7f5f0;
+}
+
+.selected-book-controls,
+.selected-book-info,
+.notes-panel {
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .book-adder {
@@ -12,14 +20,38 @@ body {
   gap: 10px;
 }
 
+.book-block {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow:
+    -1px -1px 0 black,
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black;
+}
+
 .shelf {
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
   align-items: flex-end;
-  border-bottom: 16px solid #8b5e3c;
-  padding-bottom: 10px;
   min-height: 200px;
+  background: linear-gradient(to bottom, #a97c50, #8b5e3c);
+  border-radius: 4px;
+  padding: 10px 10px 4px 10px;
+  border-top: 20px solid #6b4423;
+  border-left: 20px solid #6b4423;
+  border-right: 20px solid #6b4423;
+  border-bottom: 20px solid #4a2f18;
 }
 
 #add-book-btn {
@@ -110,4 +142,36 @@ title {
   margin: 15px 0;
   flex-direction: column;
   gap: 10px;
+}
+
+#update-page-btn {
+  background-color: #64748b;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+#show-add-form-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+#show-notes-btn {
+  background-color: #8b5cf6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+#save-notes-btn {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
 }
